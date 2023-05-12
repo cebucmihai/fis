@@ -23,7 +23,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="400.0" prefWidth="293.0" style="-fx-background-color: #4287f5;">
          <children>
-            <Button fx:id="button_login" layoutX="98.0" layoutY="269.0" mnemonicParsing="false" onAction="#userLogIn" prefHeight="35.0" prefWidth="149.0" style="-fx-background-color: #000000;" text="Login" textFill="WHITE">
+            <Button fx:id="button_login" layoutX="98.0" layoutY="269.0" mnemonicParsing="false" onAction="#checkLogin" prefHeight="35.0" prefWidth="149.0" style="-fx-background-color: #000000;" text="Login" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="18.0" />
                </font>
