@@ -14,7 +14,4 @@ public class Utils {
     private Stage stage;
     private Scene scene;
     private Parent root;
-    NitriteDB db = new NitriteDB();
-
-
 }

@@ -19,7 +19,9 @@ public class LogInController {
     private  Button button_sign_up;
     @FXML
     private  Label wrongLogin;
-    NitriteDB db = new NitriteDB();
+
+    NitriteDB db = NitriteDB.getInstance();
+
     public void userLogin(ActionEvent event) throws IOException {
         checkLogin();
     }

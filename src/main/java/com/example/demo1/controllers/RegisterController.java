@@ -25,7 +25,8 @@ public class RegisterController implements Initializable {
     private Button login;
     @FXML
     private Label usernameTaken;
-   // NitriteDB db = new NitriteDB();
+
+    NitriteDB db = NitriteDB.getInstance();
     private final String[] roles = {"Customer", "Organizer"};
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
