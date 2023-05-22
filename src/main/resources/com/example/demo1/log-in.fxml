@@ -24,7 +24,7 @@
       </AnchorPane>
       <AnchorPane prefHeight="400.0" prefWidth="293.0" style="-fx-background-color: #4287f5;">
          <children>
-            <Button fx:id="button_login" layoutX="51.0" layoutY="286.0" mnemonicParsing="false" onAction="#checkLogin" prefHeight="41.0" prefWidth="158.0" style="-fx-background-color: #000000;" text="Login" textFill="WHITE">
+            <Button fx:id="button_login" layoutX="51.0" layoutY="286.0" mnemonicParsing="false" onAction="#userLogin" prefHeight="41.0" prefWidth="158.0" style="-fx-background-color: #000000;" text="Login" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="18.0" />
                </font>
@@ -40,7 +40,7 @@
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="button_sign_up" layoutX="131.0" layoutY="350.0" mnemonicParsing="false" prefHeight="24.0" prefWidth="70.0" style="-fx-background-color: #4287f5;" text="Sign up!" textFill="#0400ff" underline="true">
+            <Button fx:id="button_sign_up" layoutX="131.0" layoutY="350.0" mnemonicParsing="false" onAction="#toRegister" prefHeight="24.0" prefWidth="70.0" style="-fx-background-color: #4287f5;" text="Sign up!" textFill="#0400ff" underline="true">
                <font>
                   <Font name="Arial Rounded MT Bold" size="13.0" />
                </font>
