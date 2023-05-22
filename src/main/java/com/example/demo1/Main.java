@@ -1,5 +1,6 @@
 package com.example.demo1;
 
+import com.example.demo1.database.NitriteDB;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +10,7 @@ import java.io.IOException;
 
 public class Main extends Application {
     private static Stage stage;
-
+    NitriteDB db = NitriteDB.getInstance();
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setResizable(false);

@@ -56,16 +56,17 @@ public class NitriteDB {
         }
     }
 
-    public Optional<User> findUser(String username, String password) {
+    public String findUser(String username, String password) {
         for (User u : userRepository.find()) {
             if (username.equals(u.getUsername()) && password.equals(u.getUsername())) {
-                return Optional.of(u);
+                return u.role;
             }
         }
-        return Optional.empty();
+        return null;
     }
 
     public void closeDatabase() {
         db.close();
     }
+
 }

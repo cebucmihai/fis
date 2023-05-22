@@ -34,15 +34,15 @@ public class LogInController {
         else if(tf_password.getText().isEmpty()) {
             wrongLogin.setText("Please fill in the password field");
         }
-        else if(db.findUser(tf_username.getText(),tf_password.getText()).isPresent()) {
-            User user = db.findUser(tf_username.getText(),tf_password.getText()).get();
+        else if(db.findUser(tf_username.getText(),tf_password.getText())!=null) {
+            String r = db.findUser(tf_username.getText(),tf_password.getText());
             Main m = new Main();
-            if(user.getRole().equals("customer")) {
+            if(r.equals("Customer")) {
                // DataHolderForCurrentUser.setCurrentUser(new User(tf_username.getText(), tf_password.getText(), role.getValue()));
                 m.changeScene("sport-list.fxml");
             }
-            else if(user.getRole().equals("organizer")){
-                m.changeScene("organizer.fxml");
+            else if(r.equals("Organizer")){
+                m.changeScene("register.fxml");
             }
         }
         else {
