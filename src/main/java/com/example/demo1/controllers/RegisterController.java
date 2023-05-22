@@ -6,18 +6,17 @@ import com.example.demo1.exceptions.UserAlreadyExists;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RegisterController implements Initializable {
     @FXML
-    private Button username;
+    private TextField username;
     @FXML
-    private Button password;
+    private PasswordField password;
     @FXML
     private ChoiceBox<String> role;
     @FXML
@@ -26,8 +25,7 @@ public class RegisterController implements Initializable {
     private Button login;
     @FXML
     private Label usernameTaken;
-
-    NitriteDB db = new NitriteDB();
+   // NitriteDB db = new NitriteDB();
     private final String[] roles = {"Customer", "Organizer"};
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -55,7 +53,7 @@ public class RegisterController implements Initializable {
         }
         else{
             try {
-                db.insertUser(username.getText(), password.getText(), (String) role.getValue());
+               // db.insertUser(username.getText(), password.getText(), (String) role.getValue());
                 usernameTaken.setText("Account created successfully!");
             } catch (UserAlreadyExists e) {
                 usernameTaken.setText(e.getMessage());
