@@ -1,12 +1,12 @@
-package com.example.demo1;
+package com.example.demo1.controllers;
 
+import com.example.demo1.Main;
+import com.example.demo1.database.NitriteDB;
+import com.example.demo1.entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import javafx.scene.control.*;
-
 import java.io.IOException;
-
 
 public class LogInController {
     @FXML
@@ -19,8 +19,6 @@ public class LogInController {
     private  Button button_sign_up;
     @FXML
     private  Label wrongLogin;
-    @FXML
-    private ChoiceBox<String> role;
     NitriteDB db = new NitriteDB();
     public void userLogin(ActionEvent event) throws IOException {
         checkLogin();
@@ -34,14 +32,15 @@ public class LogInController {
         else if(tf_password.getText().isEmpty()) {
             wrongLogin.setText("Please fill in the password field");
         }
-        else if(db.findUser(new User(tf_username.getText(),tf_password.getText(),role.getValue()))) {
-            Main m= new Main();
-            if(role.getValue().equals("customer")) {
+        else if(db.findUser(tf_username.getText(),tf_password.getText()).isPresent()) {
+            User user = db.findUser(tf_username.getText(),tf_password.getText()).get();
+            Main m = new Main();
+            if(user.getRole().equals("customer")) {
                // DataHolderForCurrentUser.setCurrentUser(new User(tf_username.getText(), tf_password.getText(), role.getValue()));
                 m.changeScene("sport-list.fxml");
             }
-            else if(role.getValue().equals("manager")){
-                m.changeScene("manager.fxml");
+            else if(user.getRole().equals("organizer")){
+                m.changeScene("organizer.fxml");
             }
         }
         else {
@@ -49,6 +48,10 @@ public class LogInController {
         }
 
 
+    }
+    public void toRegister(ActionEvent event) throws IOException{
+        Main m = new Main();
+        m.changeScene("register.fxml");
     }
 
 }
