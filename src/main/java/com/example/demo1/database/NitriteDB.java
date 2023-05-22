@@ -1,11 +1,11 @@
-package com.example.demo1;
+package com.example.demo1.database;
+import com.example.demo1.entities.User;
+import com.example.demo1.exceptions.UserAlreadyExists;
 import org.dizitart.no2.Nitrite;
-import org.dizitart.no2.NitriteCollection;
-import org.dizitart.no2.event.ChangeInfo;
-import org.dizitart.no2.event.ChangeListener;
 import org.dizitart.no2.objects.ObjectRepository;
-import org.dizitart.no2.objects.filters.ObjectFilters;
-import org.dizitart.no2.util.Iterables;
+
+import java.util.Optional;
+
 public class NitriteDB {
     private Nitrite db = Nitrite.builder()
             .compressed()
@@ -34,15 +34,12 @@ public class NitriteDB {
             System.out.println(user);
         }
     }
-    public Boolean findUser(String username,String password, String role) {
+    public Optional<User> findUser(String username, String password) {
         for (User u : userRepository.find()) {
-            String uname= u.getUsername();
-            String pw= u.getPassword();
-            String r = u.getRole();
-            if(uname.equals(username) && pw.equals(password) && r.equals(role)){
-                return true;
+            if(username.equals(u.getUsername()) && password.equals(u.getUsername())){
+                return Optional.of(u);
             }
         }
-        return false;
+        return Optional.empty();
     }
 }
