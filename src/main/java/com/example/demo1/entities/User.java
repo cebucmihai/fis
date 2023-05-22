@@ -39,19 +39,6 @@ public class User {
         this.role = role;
     }
 
-    /*public Document write(NitriteMapper mapper){
-        Document document = new Document();
-        document.put("username",username);
-        document.put("password",password);
-        document.put("role",role);
-        return document;
-    }
-
-    public void read(NitriteMapper mapper, Document document) {
-        username = (String) document.get("username");
-        password = (String) document.get("password");
-        role= (String) document.get("role");
-    }*/
     @Override
     public String toString() {
         return "User{" +

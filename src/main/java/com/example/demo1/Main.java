@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class Main extends Application {
     private static Stage stage;
-    NitriteDB db = NitriteDB.getInstance();
+    private NitriteDB db = NitriteDB.getInstance();
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setResizable(false);
