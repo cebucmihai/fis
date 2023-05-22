@@ -18,18 +18,36 @@ public class LogInController {
     @FXML
     private  Button button_sign_up;
     @FXML
-    private  Label label_verify;
-    Utils m = new Utils();
-    NitriteDB db=new NitriteDB();
-
+    private  Label wrongLogin;
     @FXML
-    private void checkLogin(ActionEvent event) throws IOException{
-       if(!db.findUser(tf_username.getText(),tf_password.getText())){
-            label_verify.setText("Wrong Credentials ! Try Again !");
-        }else{
-            //button_login.
-            m.changeScene(event,"register.fxml");
+    private ChoiceBox<String> role;
+    NitriteDB db = new NitriteDB();
+    public void userLogin(ActionEvent event) throws IOException {
+        checkLogin();
+    }
+    @FXML
+    private void checkLogin() throws IOException{
+
+        if(tf_username.getText().isEmpty() ) {
+            wrongLogin.setText("Please fill in the username field");
         }
+        else if(tf_password.getText().isEmpty()) {
+            wrongLogin.setText("Please fill in the password field");
+        }
+        else if(db.findUser(new User(tf_username.getText(),tf_password.getText(),role.getValue()))) {
+            Main m= new Main();
+            if(role.getValue().equals("customer")) {
+               // DataHolderForCurrentUser.setCurrentUser(new User(tf_username.getText(), tf_password.getText(), role.getValue()));
+                m.changeScene("sport-list.fxml");
+            }
+            else if(role.getValue().equals("manager")){
+                m.changeScene("manager.fxml");
+            }
+        }
+        else {
+            wrongLogin.setText("User credentials are introduced wrong!");
+        }
+
 
     }
 

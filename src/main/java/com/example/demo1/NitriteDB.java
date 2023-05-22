@@ -25,11 +25,9 @@ public class NitriteDB {
             System.out.println(user);
         }
     }
-    public boolean findUser(String username,String password) {
-        for (User user : userRepository.find()) {
-            String uname= user.getUsername();
-            String pw= user.getPassword();
-            if(uname.equals(username) && pw.equals(password)){
+    public Boolean findUser(User user) {
+        for (User u : userRepository.find()) {
+            if(u.equals(user)){
                 return true;
             }
         }

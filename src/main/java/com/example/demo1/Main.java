@@ -11,14 +11,22 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     @Override
     public void start(Stage primaryStage) throws IOException {
         primaryStage.setResizable(false);
-        Parent root = FXMLLoader.load(getClass().getResource("log-in.fxml"));
-        Scene scene = new Scene(root, 600, 400);
+        root = FXMLLoader.load(getClass().getResource("log-in.fxml"));
+        scene = new Scene(root, 600, 400);
         primaryStage.setTitle("Sport Events!");
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    public void changeScene(String fxml) throws IOException {
+        root = FXMLLoader.load(getClass().getResource(fxml));
+        stage.getScene().setRoot(root);
     }
     public static void main(String[] args) {
         launch();
