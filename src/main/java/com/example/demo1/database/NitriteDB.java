@@ -25,6 +25,7 @@ public class NitriteDB {
                 .filePath("users.txt")
                 .openOrCreate("user", "password");
         userRepository = db.getRepository(User.class);
+        eventRepository = db.getRepository(Event.class);
     }
 
     public static NitriteDB getInstance() {

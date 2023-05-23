@@ -12,7 +12,7 @@ public class Event {
     public double ticketPrice;
 
     public User organizer;
-
+    public Event(){};
     public Event(String eventName,
                  SportType sportType,
                  String eventDate,
@@ -35,13 +35,13 @@ public class Event {
         this.sportType = sportType;
     }
 
-//    public LocalDate getEventDate() {
-//        return eventDate;
-//    }
-//
-//    public void setEventDate(LocalDate eventDate) {
-//        this.eventDate = eventDate;
-//    }
+   public String getEventDate() {
+       return eventDate;
+    }
+
+    public void setEventDate(String eventDate) {
+        this.eventDate = eventDate;
+    }
 
     public int getNumberOfSeats() {
         return numberOfSeats;

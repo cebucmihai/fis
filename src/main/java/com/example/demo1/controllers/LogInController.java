@@ -2,6 +2,7 @@ package com.example.demo1.controllers;
 
 import com.example.demo1.Main;
 import com.example.demo1.database.NitriteDB;
+import com.example.demo1.entities.SportType;
 import com.example.demo1.entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,6 +39,7 @@ public class LogInController {
             User user = db.findUser(tf_username.getText(),tf_password.getText()).get();
             db.setCurrentUser(user);
             System.out.println(user);
+            db.insertEvent("FOTBAL1", SportType.BASKETBALL,"10 Iunie",30,25.0);
             Main m = new Main();
             if(user.getRole().equals("Customer")) {
                // DataHolderForCurrentUser.setCurrentUser(new User(tf_username.getText(), tf_password.getText(), role.getValue()));

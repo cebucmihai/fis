@@ -1,6 +1,8 @@
 package com.example.demo1.controllers;
 
 import com.example.demo1.Main;
+import com.example.demo1.database.NitriteDB;
+import com.example.demo1.entities.SportType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,8 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class FootballController implements Initializable {
     @FXML
@@ -27,22 +29,25 @@ public class FootballController implements Initializable {
     @FXML
     private Label ticket_success;
     @FXML
-    private TableView<Event> table;
+    private TableView<com.example.demo1.entities.Event> table;
     @FXML
-    private TableColumn<Event,String> name;
+    private TableColumn<com.example.demo1.entities.Event,String> name;
     @FXML
-    private TableColumn<Event, LocalDateTime> date;
+    private TableColumn<com.example.demo1.entities.Event, String> date;
     @FXML
-    private TableColumn<Event,Integer> seats;
+    private TableColumn<com.example.demo1.entities.Event,Integer> seats;
     @FXML
-    private TableColumn<Event,Double> price;
-   // ObservableList<Event> list = FXCollections.observableList()
+    private TableColumn<com.example.demo1.entities.Event,Double> price;
+    NitriteDB db = NitriteDB.getInstance();
+    ObservableList<com.example.demo1.entities.Event> list = FXCollections.observableList(db.readEvents().stream().filter(event -> event.getSportType().equals(SportType.FOOTBALL)).collect(Collectors.toList()));
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
-        name.setCellValueFactory(new PropertyValueFactory<Event,String>("name"));
-        date.setCellValueFactory(new PropertyValueFactory<Event,LocalDateTime>("date"));
-        seats.setCellValueFactory(new PropertyValueFactory<Event,Integer>("seats"));
-        price.setCellValueFactory(new PropertyValueFactory<Event,Double>("price"));
+        name.setCellValueFactory(new PropertyValueFactory<com.example.demo1.entities.Event,String>("eventName"));
+        date.setCellValueFactory(new PropertyValueFactory<com.example.demo1.entities.Event,String>("eventDate"));
+        seats.setCellValueFactory(new PropertyValueFactory<com.example.demo1.entities.Event,Integer>("numberOfSeats"));
+        price.setCellValueFactory(new PropertyValueFactory<com.example.demo1.entities.Event,Double>("ticketPrice"));
+
+        table.setItems(list);
     }
     public void toSportList(ActionEvent event) throws IOException {
         Main m = new Main();
