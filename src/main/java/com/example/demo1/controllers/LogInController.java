@@ -39,10 +39,10 @@ public class LogInController {
             Main m = new Main();
             if(r.equals("Customer")) {
                // DataHolderForCurrentUser.setCurrentUser(new User(tf_username.getText(), tf_password.getText(), role.getValue()));
-                m.changeScene("sport-list.fxml");
+                m.changeScene("customer-menu.fxml");
             }
             else if(r.equals("Organizer")){
-                m.changeScene("register.fxml");
+                m.changeScene("organizer-menu.fxml");
             }
         }
         else {

@@ -17,7 +17,7 @@
          <children>
             <ImageView fitHeight="208.0" fitWidth="252.0" layoutX="40.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@gameon.png" />
+                  <Image url="@../images/gameon.png" />
                </image>
             </ImageView>
          </children>
@@ -49,7 +49,7 @@
             <ChoiceBox fx:id="role" layoutX="60.0" layoutY="256.0" prefWidth="150.0" />
             <ImageView fitHeight="121.0" fitWidth="135.0" layoutX="68.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@register.png" />
+                  <Image url="@../images/register.png" />
                </image>
             </ImageView>
          </children>
