@@ -1,16 +1,25 @@
 package com.example.demo1.entities;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 public class Event {
 
-    private SportType sportType;
-    private LocalDateTime eventDate;
-    private int numberOfSeats;
-    private double ticketPrice;
-    private User organizer;
+    public String eventName;
+    public SportType sportType;
 
-    public Event(SportType sportType, LocalDateTime eventDate, int numberOfSeats, double ticketPrice, User organizer) {
+    public String eventDate;
+    public int numberOfSeats;
+    public double ticketPrice;
+
+    public User organizer;
+
+    public Event(String eventName,
+                 SportType sportType,
+                 String eventDate,
+                 int numberOfSeats,
+                 double ticketPrice,
+                 User organizer) {
+        this.eventName = eventName;
         this.sportType = sportType;
         this.eventDate = eventDate;
         this.numberOfSeats = numberOfSeats;
@@ -26,13 +35,13 @@ public class Event {
         this.sportType = sportType;
     }
 
-    public LocalDateTime getEventDate() {
-        return eventDate;
-    }
-
-    public void setEventDate(LocalDateTime eventDate) {
-        this.eventDate = eventDate;
-    }
+//    public LocalDate getEventDate() {
+//        return eventDate;
+//    }
+//
+//    public void setEventDate(LocalDate eventDate) {
+//        this.eventDate = eventDate;
+//    }
 
     public int getNumberOfSeats() {
         return numberOfSeats;
@@ -48,6 +57,14 @@ public class Event {
 
     public void setTicketPrice(double ticketPrice) {
         this.ticketPrice = ticketPrice;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public User getOrganizer() {

@@ -1,16 +1,23 @@
 package com.example.demo1.database;
 
+import com.example.demo1.entities.Event;
+import com.example.demo1.entities.SportType;
 import com.example.demo1.entities.User;
 import com.example.demo1.exceptions.UserAlreadyExists;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class NitriteDB {
+
+    private User currentUser;
     private static NitriteDB instance;
     private Nitrite db;
     private ObjectRepository<User> userRepository;
+    private ObjectRepository<Event> eventRepository;
 
     private NitriteDB() {
         db = Nitrite.builder()
@@ -40,6 +47,10 @@ public class NitriteDB {
         return false;
     }
 
+    public void setCurrentUser(User currentUser) {
+        this.currentUser = currentUser;
+    }
+
     public void insertUser(String username, String password, String role) {
         if (checkUsername(username))
             throw new UserAlreadyExists("ANOTHER USERNAME");
@@ -56,17 +67,36 @@ public class NitriteDB {
         }
     }
 
-    public String findUser(String username, String password) {
+    public Optional<User> findUser(String username, String password) {
         for (User u : userRepository.find()) {
             if (username.equals(u.getUsername()) && password.equals(u.getUsername())) {
-                return u.role;
+                return Optional.of(u);
             }
         }
-        return null;
+        return Optional.empty();
+    }
+
+    public List<Event> readEvents() {
+        List<Event> events = new ArrayList<>();
+        for(Event e : eventRepository.find()) {
+            events.add(e);
+        }
+        return events;
+    }
+
+    public void insertEvent(String eventName,
+                            SportType sportType,
+                            String eventDate,
+                            int numberOfSeats,
+                            double ticketPrice) {
+        eventRepository.insert(new Event(eventName, sportType, eventDate, numberOfSeats, ticketPrice, getCurrentUser()));
     }
 
     public void closeDatabase() {
         db.close();
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
 }

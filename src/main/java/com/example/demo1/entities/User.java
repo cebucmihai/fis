@@ -1,9 +1,13 @@
 package com.example.demo1.entities;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User {
+
+    public List<Event> eventList;
     public String username;
     public String password;
     public String role;
@@ -12,6 +16,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+        eventList = new ArrayList<>();
     }
     public User(){}
 
@@ -64,5 +69,9 @@ public class User {
         int result = username != null ? username.hashCode() : 0;
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
+    }
+
+    public void addEvent(Event event) {
+        eventList.add(event);
     }
 }
