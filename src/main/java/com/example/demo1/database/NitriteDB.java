@@ -16,6 +16,10 @@ public class NitriteDB {
     private User currentUser;
     private static NitriteDB instance;
     private Nitrite db;
+
+    private int user_count = 0;
+    private int event_count = 0;
+
     private ObjectRepository<User> userRepository;
     private ObjectRepository<Event> eventRepository;
 
@@ -56,10 +60,12 @@ public class NitriteDB {
         if (checkUsername(username))
             throw new UserAlreadyExists("ANOTHER USERNAME");
         User user = new User();
+        user.setId(user_count);
         user.setUsername(username);
         user.setPassword(password);
         user.setRole(role);
         userRepository.insert(user);
+        user_count++;
     }
 
     public void readUser() {
@@ -91,6 +97,11 @@ public class NitriteDB {
                             int numberOfSeats,
                             double ticketPrice) {
         eventRepository.insert(new Event(eventName, sportType, eventDate, numberOfSeats, ticketPrice, getCurrentUser()));
+    }
+
+    public void addEventToUser(User user, Event event) {
+        user.addEvent(event);
+        userRepository.update(user);
     }
 
     public void closeDatabase() {

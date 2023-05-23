@@ -51,6 +51,7 @@ public class FootballController implements Initializable {
 
          try {
              db.getCurrentUser().addEvent(table.getSelectionModel().getSelectedItems().get(0));
+             db.addEventToUser(db.getCurrentUser(), table.getSelectionModel().getSelectedItems().get(0));
              ticket_message.setText("Ticket bought successfully");
          }catch(IndexOutOfBoundsException e){
              ticket_message.setText("Please select an event !");

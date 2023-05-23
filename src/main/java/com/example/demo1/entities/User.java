@@ -1,12 +1,16 @@
 package com.example.demo1.entities;
 
 
+import org.dizitart.no2.objects.Id;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class User {
 
+    @Id
+    public int id;
     public List<Event> eventList;
     public String username;
     public String password;
@@ -46,6 +50,14 @@ public class User {
         this.role = role;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -75,5 +87,9 @@ public class User {
 
     public void addEvent(Event event) {
         eventList.add(event);
+    }
+
+    public List<Event> getEventList() {
+        return eventList;
     }
 }
