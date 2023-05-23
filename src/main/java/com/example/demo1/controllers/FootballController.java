@@ -3,16 +3,13 @@ package com.example.demo1.controllers;
 import com.example.demo1.Main;
 import com.example.demo1.database.NitriteDB;
 import com.example.demo1.entities.SportType;
+import com.example.demo1.entities.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -27,7 +24,7 @@ public class FootballController implements Initializable {
     @FXML
     private Button back;
     @FXML
-    private Label ticket_success;
+    private Label ticket_message;
     @FXML
     private TableView<com.example.demo1.entities.Event> table;
     @FXML
@@ -48,6 +45,16 @@ public class FootballController implements Initializable {
         price.setCellValueFactory(new PropertyValueFactory<com.example.demo1.entities.Event,Double>("ticketPrice"));
 
         table.setItems(list);
+    }
+    @FXML
+    public void buyTicket(){
+
+         try {
+             db.getCurrentUser().addEvent(table.getSelectionModel().getSelectedItems().get(0));
+             ticket_message.setText("Ticket bought successfully");
+         }catch(IndexOutOfBoundsException e){
+             ticket_message.setText("Please select an event !");
+         }
     }
     public void toSportList(ActionEvent event) throws IOException {
         Main m = new Main();

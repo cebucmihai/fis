@@ -31,12 +31,12 @@
                 </Button>
             </children>
         </AnchorPane>
-        <Button fx:id="buy_ticket" layoutX="231.0" layoutY="305.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="139.0" style="-fx-background-color: #000000;" text="Buy Ticket" textFill="WHITE">
+        <Button fx:id="buy_ticket" layoutX="231.0" layoutY="305.0" mnemonicParsing="false" onAction="#buyTicket" prefHeight="41.0" prefWidth="139.0" style="-fx-background-color: #000000;" text="Buy Ticket" textFill="WHITE">
             <font>
                 <Font name="Arial Rounded MT Bold" size="18.0" />
             </font>
         </Button>
-        <Label fx:id="ticket_success" alignment="CENTER" layoutX="179.0" layoutY="356.0" prefHeight="17.0" prefWidth="242.0" textFill="#2bff00">
+        <Label fx:id="ticket_message" alignment="CENTER" layoutX="120.0" layoutY="356.0" prefHeight="30.0" prefWidth="362.0">
             <font>
                 <Font name="System Bold" size="20.0" />
             </font></Label>

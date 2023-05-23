@@ -26,7 +26,7 @@ public class BasketballController implements Initializable {
     @FXML
     private Button back;
     @FXML
-    private Label ticket_success;
+    private Label ticket_message;
     @FXML
     private TableView<Event> table;
     @FXML
@@ -47,6 +47,16 @@ public class BasketballController implements Initializable {
         price.setCellValueFactory(new PropertyValueFactory<com.example.demo1.entities.Event,Double>("ticketPrice"));
 
         table.setItems(list);
+    }
+    @FXML
+    public void buyTicket(){
+
+        try {
+            db.getCurrentUser().addEvent(table.getSelectionModel().getSelectedItems().get(0));
+            ticket_message.setText("Ticket bought successfully");
+        }catch(IndexOutOfBoundsException e){
+            ticket_message.setText("Please select an event !");
+        }
     }
 
     public void toSportList(ActionEvent event) throws IOException {

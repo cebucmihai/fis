@@ -16,9 +16,11 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
+       eventList = new ArrayList<>();
+    }
+    public User(){
         eventList = new ArrayList<>();
     }
-    public User(){}
 
     public String getUsername() {
         return username;
