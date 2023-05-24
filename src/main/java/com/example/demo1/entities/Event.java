@@ -1,9 +1,13 @@
 package com.example.demo1.entities;
 
-import java.util.Date;
+import com.example.demo1.exceptions.InsufficientSeats;
+import org.dizitart.no2.objects.Id;
+
+import java.util.Objects;
 
 public class Event {
 
+    @Id
     public String eventName;
     public SportType sportType;
 
@@ -73,5 +77,23 @@ public class Event {
 
     public void setOrganizer(User organizer) {
         this.organizer = organizer;
+    }
+
+    public void updateNumberOfSeats() throws InsufficientSeats {
+        if(numberOfSeats == 0) throw new InsufficientSeats();
+        numberOfSeats--;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return numberOfSeats == event.numberOfSeats && Double.compare(event.ticketPrice, ticketPrice) == 0 && Objects.equals(eventName, event.eventName) && sportType == event.sportType && Objects.equals(eventDate, event.eventDate) && Objects.equals(organizer, event.organizer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventName, sportType, eventDate, numberOfSeats, ticketPrice, organizer);
     }
 }

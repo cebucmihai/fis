@@ -4,6 +4,7 @@ import com.example.demo1.Main;
 import com.example.demo1.database.NitriteDB;
 import com.example.demo1.entities.SportType;
 import com.example.demo1.entities.User;
+import com.example.demo1.exceptions.InsufficientSeats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -51,7 +52,12 @@ public class FootballController implements Initializable {
 
          try {
              db.addEventToUser(db.getCurrentUser(), table.getSelectionModel().getSelectedItems().get(0));
-             ticket_message.setText("Ticket bought successfully");
+             try{
+                db.findEvent(table.getSelectionModel().getSelectedItems().get(0));
+                ticket_message.setText("Ticket bought successfully");
+             } catch (InsufficientSeats insufficientSeats) {
+                 ticket_message.setText("No more seats for this event!");
+             }
          }catch(IndexOutOfBoundsException e){
              ticket_message.setText("Please select an event !");
          }

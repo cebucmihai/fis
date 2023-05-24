@@ -4,11 +4,11 @@ import com.example.demo1.entities.Event;
 import com.example.demo1.entities.EventsPerUser;
 import com.example.demo1.entities.SportType;
 import com.example.demo1.entities.User;
+import com.example.demo1.exceptions.InsufficientSeats;
 import com.example.demo1.exceptions.UserAlreadyExists;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,8 +108,14 @@ public class NitriteDB {
     }
 
     public void addEventToUser(User user, Event event) {
-        eventsPerUserRepository.insert(new EventsPerUser(user,event));
+        eventsPerUserRepository.insert(new EventsPerUser(user, event));
     }
+
+    public void findEvent(Event event) throws InsufficientSeats {
+        event.updateNumberOfSeats();
+        eventRepository.update(event);
+    }
+
     public List<EventsPerUser> getEventPerUser(){
         List<EventsPerUser> events = new ArrayList<>();
         for(EventsPerUser u : eventsPerUserRepository.find()){
