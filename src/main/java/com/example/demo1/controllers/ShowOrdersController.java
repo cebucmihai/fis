@@ -34,7 +34,11 @@ public class ShowOrdersController implements Initializable {
     @FXML
     private TableColumn<com.example.demo1.entities.Event,Double> price;
     NitriteDB db = NitriteDB.getInstance();
-    ObservableList<Event> list = FXCollections.observableList(db.findUser(db.getCurrentUser().getUsername(), db.getCurrentUser().getPassword()).get().getEventList());
+    ObservableList<Event> list = FXCollections.observableList(db.getEventPerUser()
+                                                                .stream()
+                                                                .filter(eventsPerUser -> eventsPerUser.getCurrentUser().equals(db.getCurrentUser()))
+                                                                .map(eventsPerUser -> eventsPerUser.getEvent())
+                                                                .toList());
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         name.setCellValueFactory(new PropertyValueFactory<Event,String>("eventName"));

@@ -53,7 +53,7 @@ public class TennisController implements Initializable {
     public void buyTicket(){
 
         try {
-            db.getCurrentUser().addEvent(table.getSelectionModel().getSelectedItems().get(0));
+         //   db.getCurrentUser().addEvent(table.getSelectionModel().getSelectedItems().get(0));
             ticket_message.setText("Ticket bought successfully");
         }catch(IndexOutOfBoundsException e){
             ticket_message.setText("Please select an event !");

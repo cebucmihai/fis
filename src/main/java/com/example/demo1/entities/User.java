@@ -8,10 +8,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class User {
-
-    @Id
-    public int id;
-    public List<Event> eventList;
     public String username;
     public String password;
     public String role;
@@ -20,10 +16,8 @@ public class User {
         this.username = username;
         this.password = password;
         this.role = role;
-       eventList = new ArrayList<>();
     }
     public User(){
-        eventList = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -50,13 +44,6 @@ public class User {
         this.role = role;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {
@@ -85,11 +72,5 @@ public class User {
         return result;
     }
 
-    public void addEvent(Event event) {
-        eventList.add(event);
-    }
 
-    public List<Event> getEventList() {
-        return eventList;
-    }
 }

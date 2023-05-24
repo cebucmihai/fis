@@ -1,6 +1,7 @@
 package com.example.demo1.database;
 
 import com.example.demo1.entities.Event;
+import com.example.demo1.entities.EventsPerUser;
 import com.example.demo1.entities.SportType;
 import com.example.demo1.entities.User;
 import com.example.demo1.exceptions.UserAlreadyExists;
@@ -17,11 +18,10 @@ public class NitriteDB {
     private static NitriteDB instance;
     private Nitrite db;
 
-    private int user_count = 0;
-    private int event_count = 0;
 
     private ObjectRepository<User> userRepository;
     private ObjectRepository<Event> eventRepository;
+    private ObjectRepository<EventsPerUser> eventsPerUserRepository;
 
     private NitriteDB() {
         db = Nitrite.builder()
@@ -30,6 +30,7 @@ public class NitriteDB {
                 .openOrCreate("user", "password");
         userRepository = db.getRepository(User.class);
         eventRepository = db.getRepository(Event.class);
+        eventsPerUserRepository=db.getRepository(EventsPerUser.class);
     }
 
     public static NitriteDB getInstance() {
@@ -60,12 +61,10 @@ public class NitriteDB {
         if (checkUsername(username))
             throw new UserAlreadyExists("ANOTHER USERNAME");
         User user = new User();
-        user.setId(user_count);
         user.setUsername(username);
         user.setPassword(password);
         user.setRole(role);
         userRepository.insert(user);
-        user_count++;
     }
 
     public void readUser() {
@@ -100,10 +99,15 @@ public class NitriteDB {
     }
 
     public void addEventToUser(User user, Event event) {
-        user.addEvent(event);
-        userRepository.update(user);
+        eventsPerUserRepository.insert(new EventsPerUser(user,event));
     }
-
+    public List<EventsPerUser> getEventPerUser(){
+        List<EventsPerUser> events = new ArrayList<>();
+        for(EventsPerUser u : eventsPerUserRepository.find()){
+            events.add(u);
+        }
+        return events;
+    }
     public void closeDatabase() {
         db.close();
     }
