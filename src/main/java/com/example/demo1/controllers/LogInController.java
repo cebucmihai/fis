@@ -39,7 +39,7 @@ public class LogInController {
             User user = db.findUser(tf_username.getText(),tf_password.getText()).get();
             db.setCurrentUser(user);
             System.out.println(user);
-            db.insertEvent("FOTBAL1", SportType.BASKETBALL,"10 Iunie",30,25.0);
+            db.insertEvent("BASKETBALL", SportType.BASKETBALL,"10 Iunie",30,25.0);
             Main m = new Main();
             if(user.getRole().equals("Customer")) {
                // DataHolderForCurrentUser.setCurrentUser(new User(tf_username.getText(), tf_password.getText(), role.getValue()));
