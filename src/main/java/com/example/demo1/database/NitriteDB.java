@@ -82,6 +82,15 @@ public class NitriteDB {
         return Optional.empty();
     }
 
+    public Optional<User> findUser(String username) {
+        for (User u : userRepository.find()) {
+            if (username.equals(u.getUsername())) {
+                return Optional.of(u);
+            }
+        }
+        return Optional.empty();
+    }
+
     public List<Event> readEvents() {
         List<Event> events = new ArrayList<>();
         for(Event e : eventRepository.find()) {
