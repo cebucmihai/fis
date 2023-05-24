@@ -17,9 +17,6 @@ public class NitriteDB {
     private static NitriteDB instance;
     private Nitrite db;
 
-    private int user_count = 0;
-    private int event_count = 0;
-
     private ObjectRepository<User> userRepository;
     private ObjectRepository<Event> eventRepository;
 
@@ -60,12 +57,10 @@ public class NitriteDB {
         if (checkUsername(username))
             throw new UserAlreadyExists("ANOTHER USERNAME");
         User user = new User();
-        user.setId(user_count);
         user.setUsername(username);
         user.setPassword(password);
         user.setRole(role);
         userRepository.insert(user);
-        user_count++;
     }
 
     public void readUser() {
@@ -77,6 +72,15 @@ public class NitriteDB {
     public Optional<User> findUser(String username, String password) {
         for (User u : userRepository.find()) {
             if (username.equals(u.getUsername()) && password.equals(u.getUsername())) {
+                return Optional.of(u);
+            }
+        }
+        return Optional.empty();
+    }
+
+    public Optional<User> findUser(String username) {
+        for (User u : userRepository.find()) {
+            if (username.equals(u.getUsername())) {
                 return Optional.of(u);
             }
         }
@@ -99,9 +103,10 @@ public class NitriteDB {
         eventRepository.insert(new Event(eventName, sportType, eventDate, numberOfSeats, ticketPrice, getCurrentUser()));
     }
 
-    public void addEventToUser(User user, Event event) {
-        user.addEvent(event);
-        userRepository.update(user);
+    public void addEventToUser(Event event) {
+        if(findUser(currentUser.getUsername()).isPresent()) {
+            findUser(currentUser.getUsername()).get().getEventList().add(event);
+        }
     }
 
     public void closeDatabase() {

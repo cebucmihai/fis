@@ -9,8 +9,6 @@ import java.util.Objects;
 
 public class User {
 
-    @Id
-    public int id;
     public List<Event> eventList;
     public String username;
     public String password;
@@ -48,14 +46,6 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override
