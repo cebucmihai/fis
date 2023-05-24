@@ -51,15 +51,13 @@ public class FootballController implements Initializable {
     public void buyTicket(){
 
          try {
-             db.addEventToUser(db.getCurrentUser(), table.getSelectionModel().getSelectedItems().get(0));
-             try{
-                db.findEvent(table.getSelectionModel().getSelectedItems().get(0));
-                ticket_message.setText("Ticket bought successfully");
-             } catch (InsufficientSeats insufficientSeats) {
-                 ticket_message.setText("No more seats for this event!");
-             }
+            db.findEvent(table.getSelectionModel().getSelectedItems().get(0));
+            db.addEventToUser(db.getCurrentUser(), table.getSelectionModel().getSelectedItems().get(0));
+            ticket_message.setText("Ticket bought successfully");
          }catch(IndexOutOfBoundsException e){
              ticket_message.setText("Please select an event !");
+         } catch (InsufficientSeats insufficientSeats) {
+             ticket_message.setText("No more seats for this event!");
          }
     }
     public void toSportList(ActionEvent event) throws IOException {
