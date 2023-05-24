@@ -16,4 +16,5 @@ module com.example.demo1 {
     opens com.example.demo1.database to javafx.fxml;
     exports com.example.demo1.utils;
     opens com.example.demo1.utils to javafx.fxml;
+
 }

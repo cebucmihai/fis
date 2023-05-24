@@ -16,6 +16,8 @@ public class SportListController implements Initializable {
 
     @FXML
     private Label sportListLabel;
+    @FXML
+    private Button back;
 
     @FXML
     private Button footballButton;
@@ -28,7 +30,6 @@ public class SportListController implements Initializable {
 
     @FXML
     private Button rugbyButton;
-    private Button test;
     private static final String IDLE_BUTTON_STYLE = "-fx-background-color: transparent;";
     private static final String HOVERED_BUTTON_STYLE = "-fx-background-color:-fx-shadow-highlight-color,#a4c2ed ;";
 
@@ -66,5 +67,10 @@ public class SportListController implements Initializable {
     public void toRugby(ActionEvent event) throws IOException{
         Main m = new Main();
         m.changeScene("rugby-list.fxml");
+    }
+
+    public void toCustomerMenu(ActionEvent event) throws IOException{
+        Main m = new Main();
+        m.changeScene("customer-menu.fxml");
     }
 }

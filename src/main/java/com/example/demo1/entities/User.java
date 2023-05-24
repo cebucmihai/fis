@@ -1,6 +1,10 @@
 package com.example.demo1.entities;
 
 
+import org.dizitart.no2.objects.Id;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class User {
@@ -13,7 +17,8 @@ public class User {
         this.password = password;
         this.role = role;
     }
-    public User(){}
+    public User(){
+    }
 
     public String getUsername() {
         return username;
@@ -38,6 +43,7 @@ public class User {
     public void setRole(String role) {
         this.role = role;
     }
+
 
     @Override
     public String toString() {
@@ -65,4 +71,6 @@ public class User {
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
     }
+
+
 }

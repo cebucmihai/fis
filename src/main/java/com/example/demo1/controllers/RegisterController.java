@@ -57,6 +57,7 @@ public class RegisterController implements Initializable {
                 db.insertUser(username.getText(), password.getText(), (String) role.getValue());
                 usernameTaken.setText("Account created successfully!");
                 Main m = new Main();
+                db.setCurrentUser(db.findUser(username.getText()).get());
                 if(role.getValue().equals("Customer")) {
                     m.changeScene("customer-menu.fxml");
                 } else {

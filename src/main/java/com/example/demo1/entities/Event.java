@@ -1,16 +1,29 @@
 package com.example.demo1.entities;
 
-import java.time.LocalDateTime;
+import com.example.demo1.exceptions.InsufficientSeats;
+import org.dizitart.no2.objects.Id;
+
+import java.util.Objects;
 
 public class Event {
 
-    private SportType sportType;
-    private LocalDateTime eventDate;
-    private int numberOfSeats;
-    private double ticketPrice;
-    private User organizer;
+    @Id
+    public String eventName;
+    public SportType sportType;
 
-    public Event(SportType sportType, LocalDateTime eventDate, int numberOfSeats, double ticketPrice, User organizer) {
+    public String eventDate;
+    public int numberOfSeats;
+    public double ticketPrice;
+
+    public User organizer;
+    public Event(){};
+    public Event(String eventName,
+                 SportType sportType,
+                 String eventDate,
+                 int numberOfSeats,
+                 double ticketPrice,
+                 User organizer) {
+        this.eventName = eventName;
         this.sportType = sportType;
         this.eventDate = eventDate;
         this.numberOfSeats = numberOfSeats;
@@ -26,11 +39,11 @@ public class Event {
         this.sportType = sportType;
     }
 
-    public LocalDateTime getEventDate() {
-        return eventDate;
+   public String getEventDate() {
+       return eventDate;
     }
 
-    public void setEventDate(LocalDateTime eventDate) {
+    public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
 
@@ -50,11 +63,37 @@ public class Event {
         this.ticketPrice = ticketPrice;
     }
 
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
     public User getOrganizer() {
         return organizer;
     }
 
     public void setOrganizer(User organizer) {
         this.organizer = organizer;
+    }
+
+    public void updateNumberOfSeats() throws InsufficientSeats {
+        if(numberOfSeats == 0) throw new InsufficientSeats();
+        numberOfSeats--;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return numberOfSeats == event.numberOfSeats && Double.compare(event.ticketPrice, ticketPrice) == 0 && Objects.equals(eventName, event.eventName) && sportType == event.sportType && Objects.equals(eventDate, event.eventDate) && Objects.equals(organizer, event.organizer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(eventName, sportType, eventDate, numberOfSeats, ticketPrice, organizer);
     }
 }

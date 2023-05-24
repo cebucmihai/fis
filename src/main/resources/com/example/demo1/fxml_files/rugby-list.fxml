@@ -11,10 +11,10 @@
    <children>
       <TableView fx:id="table" layoutX="35.0" layoutY="89.0" prefHeight="208.0" prefWidth="530.0">
          <columns>
-            <TableColumn prefWidth="181.0" text="Name" />
-            <TableColumn prefWidth="133.0" text="Date" />
-            <TableColumn prefWidth="117.0" text="Number of seats" />
-            <TableColumn prefWidth="98.0" text="Ticket Price" />
+            <TableColumn fx:id="name" prefWidth="181.0" text="Name" />
+            <TableColumn fx:id="date" prefWidth="133.0" text="Date" />
+            <TableColumn fx:id="seats" prefWidth="117.0" text="Number of seats" />
+            <TableColumn fx:id="price" prefWidth="98.0" text="Ticket Price" />
          </columns>
       </TableView>
       <AnchorPane layoutY="-7.0" prefHeight="82.0" prefWidth="600.0" style="-fx-background-color: #000000;">
@@ -31,12 +31,12 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="buy_ticket" layoutX="231.0" layoutY="305.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="139.0" style="-fx-background-color: #000000;" text="Buy Ticket" textFill="WHITE">
+      <Button fx:id="buy_ticket" layoutX="231.0" layoutY="305.0" mnemonicParsing="false" onAction="#buyTicket" prefHeight="41.0" prefWidth="139.0" style="-fx-background-color: #000000;" text="Buy Ticket" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
       </Button>
-      <Label fx:id="ticket_success" alignment="CENTER" layoutX="179.0" layoutY="356.0" prefHeight="17.0" prefWidth="242.0" textFill="#2bff00">
+      <Label fx:id="ticket_message" alignment="CENTER" layoutX="126.0" layoutY="356.0" prefHeight="30.0" prefWidth="349.0">
          <font>
             <Font name="System Bold" size="20.0" />
          </font></Label>

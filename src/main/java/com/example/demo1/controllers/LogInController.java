@@ -2,6 +2,7 @@ package com.example.demo1.controllers;
 
 import com.example.demo1.Main;
 import com.example.demo1.database.NitriteDB;
+import com.example.demo1.entities.SportType;
 import com.example.demo1.entities.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,14 +35,18 @@ public class LogInController {
         else if(tf_password.getText().isEmpty()) {
             wrongLogin.setText("Please fill in the password field");
         }
-        else if(db.findUser(tf_username.getText(),tf_password.getText())!=null) {
-            String r = db.findUser(tf_username.getText(),tf_password.getText());
+        else if(db.findUser(tf_username.getText(),tf_password.getText()).isPresent()) {
+            User user = db.findUser(tf_username.getText(),tf_password.getText()).get();
+            db.setCurrentUser(user);
+            System.out.println(user);
+//            db.insertEvent("UCL FINAL", SportType.FOOTBALL,"10 Iunie",30,25.0);
+//            db.insertEvent("NBA FINAL", SportType.BASKETBALL,"10 Iunie",30,25.0);
+//            db.insertEvent("ROLAND GARROS FINAL", SportType.TENNIS,"10 Iunie",30,25.0);
             Main m = new Main();
-            if(r.equals("Customer")) {
-               // DataHolderForCurrentUser.setCurrentUser(new User(tf_username.getText(), tf_password.getText(), role.getValue()));
+            if(user.getRole().equals("Customer")) {
                 m.changeScene("customer-menu.fxml");
             }
-            else if(r.equals("Organizer")){
+            else if(user.getRole().equals("Organizer")){
                 m.changeScene("organizer-menu.fxml");
             }
         }
