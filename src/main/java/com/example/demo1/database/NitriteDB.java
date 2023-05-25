@@ -14,6 +14,7 @@ import java.util.Optional;
 
 public class NitriteDB {
 
+    private Event selectedEvent;
     private User currentUser;
     private static NitriteDB instance;
     private Nitrite db;
@@ -115,6 +116,7 @@ public class NitriteDB {
         Event event = new Event(eventName, sportType, eventDate, numberOfSeats, ticketPrice);
         eventRepository.insert(event);
         currentUser.addEvents(event);
+        userRepository.update(currentUser);
     }
 
     public void updateEvent(Event event) throws InsufficientSeatsException {
@@ -128,6 +130,19 @@ public class NitriteDB {
             user.addEvents(event);
             userRepository.update(user);
         }
+    }
+    public Event selectedEvent(Event event){
+        if(event != null){
+            selectedEvent=event;
+        }
+        return selectedEvent;
+    }
+    public void modifyEvent(Event event){
+        eventRepository.remove(selectedEvent);
+        eventRepository.insert(event);
+        currentUser.getEvents().remove(selectedEvent);
+        currentUser.addEvents(event);
+        userRepository.update(currentUser);
     }
     public void closeDatabase() {
         db.close();

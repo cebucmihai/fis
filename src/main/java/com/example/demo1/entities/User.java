@@ -57,6 +57,7 @@ public class User {
         events.add(event);
     }
 
+
     @Override
     public String toString() {
         return "User{" +
