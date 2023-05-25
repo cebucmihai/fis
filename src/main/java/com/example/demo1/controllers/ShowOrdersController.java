@@ -30,20 +30,18 @@ public class ShowOrdersController implements Initializable {
     @FXML
     private TableColumn<com.example.demo1.entities.Event, String> date;
     @FXML
-    private TableColumn<com.example.demo1.entities.Event,Integer> seats;
-    @FXML
     private TableColumn<com.example.demo1.entities.Event,Double> price;
     NitriteDB db = NitriteDB.getInstance();
-    ObservableList<Event> list = FXCollections.observableList(db.getEventPerUser()
-                                                                .stream()
-                                                                .filter(eventsPerUser -> eventsPerUser.getCurrentUser().equals(db.getCurrentUser()))
-                                                                .map(eventsPerUser -> eventsPerUser.getEvent())
-                                                                .toList());
+    ObservableList<Event> list = FXCollections.observableList(db.getCurrentUser().getEvents());
+//            db.getEventPerUser()
+//                                                                .stream()
+//                                                                .filter(eventsPerUser -> eventsPerUser.getCurrentUser().equals(db.getCurrentUser()))
+//                                                                .map(eventsPerUser -> eventsPerUser.getEvent())
+//                                                                .toList());
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
         name.setCellValueFactory(new PropertyValueFactory<Event,String>("eventName"));
         date.setCellValueFactory(new PropertyValueFactory<com.example.demo1.entities.Event,String>("eventDate"));
-        seats.setCellValueFactory(new PropertyValueFactory<com.example.demo1.entities.Event,Integer>("numberOfSeats"));
         price.setCellValueFactory(new PropertyValueFactory<com.example.demo1.entities.Event,Double>("ticketPrice"));
 
         table.setItems(list);

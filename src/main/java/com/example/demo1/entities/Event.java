@@ -1,6 +1,6 @@
 package com.example.demo1.entities;
 
-import com.example.demo1.exceptions.InsufficientSeats;
+import com.example.demo1.exceptions.InsufficientSeatsException;
 import org.dizitart.no2.objects.Id;
 
 import java.util.Objects;
@@ -15,20 +15,17 @@ public class Event {
     public int numberOfSeats;
     public double ticketPrice;
 
-    public User organizer;
     public Event(){};
     public Event(String eventName,
                  SportType sportType,
                  String eventDate,
                  int numberOfSeats,
-                 double ticketPrice,
-                 User organizer) {
+                 double ticketPrice) {
         this.eventName = eventName;
         this.sportType = sportType;
         this.eventDate = eventDate;
         this.numberOfSeats = numberOfSeats;
         this.ticketPrice = ticketPrice;
-        this.organizer = organizer;
     }
 
     public SportType getSportType() {
@@ -71,16 +68,8 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public User getOrganizer() {
-        return organizer;
-    }
-
-    public void setOrganizer(User organizer) {
-        this.organizer = organizer;
-    }
-
-    public void updateNumberOfSeats() throws InsufficientSeats {
-        if(numberOfSeats == 0) throw new InsufficientSeats();
+    public void updateNumberOfSeats() throws InsufficientSeatsException {
+        if(numberOfSeats == 0) throw new InsufficientSeatsException();
         numberOfSeats--;
     }
 
@@ -89,11 +78,16 @@ public class Event {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Event event = (Event) o;
-        return numberOfSeats == event.numberOfSeats && Double.compare(event.ticketPrice, ticketPrice) == 0 && Objects.equals(eventName, event.eventName) && sportType == event.sportType && Objects.equals(eventDate, event.eventDate) && Objects.equals(organizer, event.organizer);
+        return numberOfSeats == event.numberOfSeats && Double.compare(event.ticketPrice, ticketPrice) == 0 && Objects.equals(eventName, event.eventName) && sportType == event.sportType && Objects.equals(eventDate, event.eventDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(eventName, sportType, eventDate, numberOfSeats, ticketPrice, organizer);
+        return Objects.hash(eventName, sportType, eventDate, numberOfSeats, ticketPrice);
+    }
+
+    @Override
+    public String toString() {
+        return eventName;
     }
 }

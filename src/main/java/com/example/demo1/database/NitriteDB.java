@@ -1,11 +1,11 @@
 package com.example.demo1.database;
 
 import com.example.demo1.entities.Event;
-import com.example.demo1.entities.EventsPerUser;
 import com.example.demo1.entities.SportType;
 import com.example.demo1.entities.User;
-import com.example.demo1.exceptions.InsufficientSeats;
-import com.example.demo1.exceptions.UserAlreadyExists;
+import com.example.demo1.exceptions.EventAlreadyExistException;
+import com.example.demo1.exceptions.InsufficientSeatsException;
+import com.example.demo1.exceptions.UserAlreadyExistsException;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import java.util.Optional;
 
 public class NitriteDB {
 
+    private Event selectedEvent;
     private User currentUser;
     private static NitriteDB instance;
     private Nitrite db;
@@ -21,7 +22,6 @@ public class NitriteDB {
 
     private ObjectRepository<User> userRepository;
     private ObjectRepository<Event> eventRepository;
-    private ObjectRepository<EventsPerUser> eventsPerUserRepository;
 
     private NitriteDB() {
         db = Nitrite.builder()
@@ -30,7 +30,6 @@ public class NitriteDB {
                 .openOrCreate("user", "password");
         userRepository = db.getRepository(User.class);
         eventRepository = db.getRepository(Event.class);
-        eventsPerUserRepository=db.getRepository(EventsPerUser.class);
     }
 
     public static NitriteDB getInstance() {
@@ -59,7 +58,7 @@ public class NitriteDB {
 
     public void insertUser(String username, String password, String role) {
         if (checkUsername(username))
-            throw new UserAlreadyExists("ANOTHER USERNAME");
+            throw new UserAlreadyExistsException("ANOTHER USERNAME");
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
@@ -91,6 +90,15 @@ public class NitriteDB {
         return Optional.empty();
     }
 
+    public boolean findEvent(String eventName) {
+        for (Event e : eventRepository.find()) {
+            if (eventName.equals(e.getEventName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Event> readEvents() {
         List<Event> events = new ArrayList<>();
         for(Event e : eventRepository.find()) {
@@ -104,24 +112,37 @@ public class NitriteDB {
                             String eventDate,
                             int numberOfSeats,
                             double ticketPrice) {
-        eventRepository.insert(new Event(eventName, sportType, eventDate, numberOfSeats, ticketPrice, getCurrentUser()));
+        if(findEvent(eventName)) throw new EventAlreadyExistException("This event already exist!");
+        Event event = new Event(eventName, sportType, eventDate, numberOfSeats, ticketPrice);
+        eventRepository.insert(event);
+        currentUser.addEvents(event);
+        userRepository.update(currentUser);
     }
 
-    public void addEventToUser(User user, Event event) {
-        eventsPerUserRepository.insert(new EventsPerUser(user, event));
-    }
-
-    public void findEvent(Event event) throws InsufficientSeats {
+    public void updateEvent(Event event) throws InsufficientSeatsException {
         event.updateNumberOfSeats();
         eventRepository.update(event);
     }
 
-    public List<EventsPerUser> getEventPerUser(){
-        List<EventsPerUser> events = new ArrayList<>();
-        for(EventsPerUser u : eventsPerUserRepository.find()){
-            events.add(u);
+
+    public void addEventToUser(User user,Event event){
+        if(event.getNumberOfSeats()!=0) {
+            user.addEvents(event);
+            userRepository.update(user);
         }
-        return events;
+    }
+    public Event selectedEvent(Event event){
+        if(event != null){
+            selectedEvent=event;
+        }
+        return selectedEvent;
+    }
+    public void modifyEvent(Event event){
+        eventRepository.remove(selectedEvent);
+        eventRepository.insert(event);
+        currentUser.getEvents().remove(selectedEvent);
+        currentUser.addEvents(event);
+        userRepository.update(currentUser);
     }
     public void closeDatabase() {
         db.close();
