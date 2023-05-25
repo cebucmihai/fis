@@ -10,14 +10,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -56,11 +54,24 @@ public class RugbyController implements Initializable {
         try {
             db.updateEvent(table.getSelectionModel().getSelectedItems().get(0));
             db.addEventToUser(db.getCurrentUser(), table.getSelectionModel().getSelectedItems().get(0));
-            ticket_message.setText("Ticket bought successfully");
+            successfullBuy();
         }catch(IndexOutOfBoundsException e){
             ticket_message.setText("Please select an event !");
         } catch (InsufficientSeats insufficientSeats) {
             ticket_message.setText("No more seats for this event!");
+        } catch (IOException e){
+
+        }
+    }
+    public void successfullBuy() throws IOException{
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Ticket bought successfully");
+        Optional<ButtonType> result = alert.showAndWait();
+        if(result.isPresent() && result.get()== ButtonType.OK) {
+            Main m = new Main();
+
+            m.changeScene("rugby-list.fxml");
         }
 
     }

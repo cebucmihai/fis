@@ -16,6 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
@@ -55,9 +56,7 @@ public class BasketballController implements Initializable {
         try {
             db.updateEvent(table.getSelectionModel().getSelectedItems().get(0));
             db.addEventToUser(db.getCurrentUser(), table.getSelectionModel().getSelectedItems().get(0));
-
-            Main m = new Main();
-            m.changeScene("basketball-list.fxml");
+            successfullBuy();
         }catch(IndexOutOfBoundsException e){
             ticket_message.setText("Please select an event !");
         } catch (InsufficientSeats insufficientSeats) {
@@ -67,16 +66,16 @@ public class BasketballController implements Initializable {
         }
     }
     public void successfullBuy() throws IOException{
-                  buy_ticket.setOnAction(new EventHandler<ActionEvent>(){
-                @Override
-                public void handle(ActionEvent event){
+
                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
                    alert.setContentText("Ticket bought successfully");
-                   alert.show();
-               }
-           });
-        Main m = new Main();
-        m.changeScene("basketball-list.fxml");
+                   Optional<ButtonType> result = alert.showAndWait();
+                   if(result.isPresent() && result.get()== ButtonType.OK) {
+                       Main m = new Main();
+
+                       m.changeScene("basketball-list.fxml");
+                   }
+
     }
 
     public void toSportList(ActionEvent event) throws IOException {
