@@ -45,7 +45,6 @@ public class ModifySelectedEventController implements Initializable {
 
     @FXML
     public void checkEvent() {
-
         if(eventName.getText().isEmpty()) {
             eventLabel.setText("Please fill event name!");
         } else if(numberOfSeats.getText().isEmpty()) {
@@ -68,7 +67,7 @@ public class ModifySelectedEventController implements Initializable {
             } catch (EventAlreadyExistException eventAlreadyExistException) {
                 eventLabel.setText(eventAlreadyExistException.getMessage());
             } catch (NumberFormatException e){
-                eventLabel.setText("The number of seats or the ticket price should be a number !");
+                eventLabel.setText("The number of seats and the ticket price should be a number !");
             }
         }
     }

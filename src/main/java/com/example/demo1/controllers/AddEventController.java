@@ -64,7 +64,6 @@ public class AddEventController implements Initializable {
         } else if(ticketPrice.getText().isEmpty()) {
             eventLabel.setText("Please fill ticket price!");
         } else {
-       //     System.out.println(price);
             try {
                 double price = Double.parseDouble(ticketPrice.getText());
                 int number = Integer.parseInt(numberOfSeats.getText());
@@ -72,6 +71,8 @@ public class AddEventController implements Initializable {
                 eventLabel.setText("Event created!");
             } catch (EventAlreadyExistException eventAlreadyExistException) {
                 eventLabel.setText(eventAlreadyExistException.getMessage());
+            } catch (NumberFormatException numberFormatException) {
+                eventLabel.setText("Ticket price and number of seats should be a number!");
             }
         }
     }
