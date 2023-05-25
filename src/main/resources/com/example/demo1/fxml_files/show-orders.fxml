@@ -11,10 +11,9 @@
    <children>
       <TableView fx:id="table" layoutY="75.0" prefHeight="325.0" prefWidth="600.0">
          <columns>
-            <TableColumn fx:id="name" prefWidth="163.20001220703125" text="Name" />
-            <TableColumn fx:id="date" prefWidth="136.0" text="Date" />
-            <TableColumn fx:id="seats" prefWidth="154.39996337890625" text="Number of seats" />
-            <TableColumn fx:id="price" prefWidth="140.79998779296875" text="Ticket Price" />
+            <TableColumn fx:id="name" prefWidth="216.0" text="Name" />
+            <TableColumn fx:id="date" prefWidth="192.0" text="Date" />
+            <TableColumn fx:id="price" prefWidth="191.0" text="Ticket Price" />
          </columns>
       </TableView>
       <AnchorPane layoutY="-7.0" prefHeight="82.0" prefWidth="600.0" style="-fx-background-color: #000000;">

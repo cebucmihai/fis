@@ -4,6 +4,7 @@ import com.example.demo1.Main;
 import com.example.demo1.database.NitriteDB;
 import com.example.demo1.entities.Event;
 import com.example.demo1.entities.SportType;
+import com.example.demo1.exceptions.InsufficientSeats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -53,11 +54,15 @@ public class RugbyController implements Initializable {
     public void buyTicket(){
 
         try {
-        //    db.getCurrentUser().addEvent(table.getSelectionModel().getSelectedItems().get(0));
+            db.updateEvent(table.getSelectionModel().getSelectedItems().get(0));
+            db.addEventToUser(db.getCurrentUser(), table.getSelectionModel().getSelectedItems().get(0));
             ticket_message.setText("Ticket bought successfully");
         }catch(IndexOutOfBoundsException e){
             ticket_message.setText("Please select an event !");
+        } catch (InsufficientSeats insufficientSeats) {
+            ticket_message.setText("No more seats for this event!");
         }
+
     }
 
     public void toSportList(ActionEvent event) throws IOException {

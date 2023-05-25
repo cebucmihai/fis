@@ -4,15 +4,14 @@ import com.example.demo1.Main;
 import com.example.demo1.database.NitriteDB;
 import com.example.demo1.entities.Event;
 import com.example.demo1.entities.SportType;
+import com.example.demo1.exceptions.InsufficientSeats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
@@ -29,6 +28,8 @@ public class BasketballController implements Initializable {
     private Label ticket_message;
     @FXML
     private TableView<Event> table;
+    @FXML
+    private Button buy_ticket;
     @FXML
     private TableColumn<Event,String> name;
     @FXML
@@ -52,11 +53,30 @@ public class BasketballController implements Initializable {
     public void buyTicket(){
 
         try {
-         //   db.getCurrentUser().addEvent(table.getSelectionModel().getSelectedItems().get(0));
-            ticket_message.setText("Ticket bought successfully");
+            db.updateEvent(table.getSelectionModel().getSelectedItems().get(0));
+            db.addEventToUser(db.getCurrentUser(), table.getSelectionModel().getSelectedItems().get(0));
+
+            Main m = new Main();
+            m.changeScene("basketball-list.fxml");
         }catch(IndexOutOfBoundsException e){
             ticket_message.setText("Please select an event !");
+        } catch (InsufficientSeats insufficientSeats) {
+            ticket_message.setText("No more seats for this event!");
+        } catch (IOException e){
+
         }
+    }
+    public void successfullBuy() throws IOException{
+                  buy_ticket.setOnAction(new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(ActionEvent event){
+                   Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                   alert.setContentText("Ticket bought successfully");
+                   alert.show();
+               }
+           });
+        Main m = new Main();
+        m.changeScene("basketball-list.fxml");
     }
 
     public void toSportList(ActionEvent event) throws IOException {

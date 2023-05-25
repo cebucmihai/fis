@@ -1,7 +1,6 @@
 package com.example.demo1.database;
 
 import com.example.demo1.entities.Event;
-import com.example.demo1.entities.EventsPerUser;
 import com.example.demo1.entities.SportType;
 import com.example.demo1.entities.User;
 import com.example.demo1.exceptions.InsufficientSeats;
@@ -21,7 +20,6 @@ public class NitriteDB {
 
     private ObjectRepository<User> userRepository;
     private ObjectRepository<Event> eventRepository;
-    private ObjectRepository<EventsPerUser> eventsPerUserRepository;
 
     private NitriteDB() {
         db = Nitrite.builder()
@@ -30,7 +28,6 @@ public class NitriteDB {
                 .openOrCreate("user", "password");
         userRepository = db.getRepository(User.class);
         eventRepository = db.getRepository(Event.class);
-        eventsPerUserRepository=db.getRepository(EventsPerUser.class);
     }
 
     public static NitriteDB getInstance() {
@@ -107,21 +104,17 @@ public class NitriteDB {
         eventRepository.insert(new Event(eventName, sportType, eventDate, numberOfSeats, ticketPrice, getCurrentUser()));
     }
 
-    public void addEventToUser(User user, Event event) {
-        eventsPerUserRepository.insert(new EventsPerUser(user, event));
-    }
-
-    public void findEvent(Event event) throws InsufficientSeats {
+    public void updateEvent(Event event) throws InsufficientSeats {
         event.updateNumberOfSeats();
         eventRepository.update(event);
     }
 
-    public List<EventsPerUser> getEventPerUser(){
-        List<EventsPerUser> events = new ArrayList<>();
-        for(EventsPerUser u : eventsPerUserRepository.find()){
-            events.add(u);
+
+    public void addEventToUser(User user,Event event){
+        if(event.getNumberOfSeats()!=0) {
+            user.addEvents(event);
+            userRepository.update(user);
         }
-        return events;
     }
     public void closeDatabase() {
         db.close();

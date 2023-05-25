@@ -8,6 +8,7 @@ import com.example.demo1.exceptions.InsufficientSeats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -36,6 +37,8 @@ public class FootballController implements Initializable {
     private TableColumn<com.example.demo1.entities.Event,Integer> seats;
     @FXML
     private TableColumn<com.example.demo1.entities.Event,Double> price;
+    @FXML
+    private Button buy_ticket;
     NitriteDB db = NitriteDB.getInstance();
     ObservableList<com.example.demo1.entities.Event> list = FXCollections.observableList(db.readEvents().stream().filter(event -> event.getSportType().equals(SportType.FOOTBALL)).collect(Collectors.toList()));
     @Override
@@ -51,8 +54,17 @@ public class FootballController implements Initializable {
     public void buyTicket(){
 
          try {
-            db.findEvent(table.getSelectionModel().getSelectedItems().get(0));
+            db.updateEvent(table.getSelectionModel().getSelectedItems().get(0));
             db.addEventToUser(db.getCurrentUser(), table.getSelectionModel().getSelectedItems().get(0));
+             buy_ticket.setOnAction(new EventHandler<ActionEvent>(){
+                @Override
+                public void handle(ActionEvent event){
+             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+             alert.setContentText("Ticket bought successfully");
+             alert.showAndWait();
+                }
+            });
+
             ticket_message.setText("Ticket bought successfully");
          }catch(IndexOutOfBoundsException e){
              ticket_message.setText("Please select an event !");
