@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,16 +22,24 @@
         </AnchorPane>
         <AnchorPane prefHeight="400.0" prefWidth="270.0" style="-fx-background-color: #4287f5;">
             <children>
-                <Button fx:id="menu_back" layoutX="60.0" layoutY="225.0" mnemonicParsing="false" onAction="#toOrganizerMenu" prefHeight="49.0" prefWidth="149.0" style="-fx-background-color: #000000;" text="Back" textFill="WHITE">
-                    <font>
-                        <Font name="Arial Rounded MT Bold" size="15.0" />
-                    </font>
-                </Button>
-                <Label fx:id="usernameTaken" layoutX="67.0" layoutY="64.0" prefHeight="18.0" prefWidth="135.0" textAlignment="CENTER" textFill="#791e1e">
+                <Label fx:id="usernameTaken" alignment="CENTER" layoutX="13.0" layoutY="132.0" prefHeight="18.0" prefWidth="235.0" textAlignment="CENTER">
                     <font>
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
+                <ChoiceBox fx:id="eventChoiceBox" layoutX="30.0" layoutY="247.0" prefHeight="26.0" prefWidth="210.0" />
+            <Label layoutX="83.0" layoutY="200.0" text="Select event:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="back" layoutX="29.0" layoutY="287.0" mnemonicParsing="false" onAction="#toOrganizerMenu" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #000000;" text="Back" textFill="WHITE" />
+            <Button fx:id="select" layoutX="144.0" layoutY="287.0" mnemonicParsing="false" onAction="#toSelectedEvent" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #000000;" text="Select" textFill="WHITE" />
+            <ImageView fitHeight="150.0" fitWidth="107.0" layoutX="77.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../../../../../../../Dropbox/PC/Desktop/FIS/fis/src/main/resources/com/example/demo1/images/add-event.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
     </children>

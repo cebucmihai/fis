@@ -24,25 +24,22 @@
       </AnchorPane>
       <AnchorPane prefHeight="400.0" prefWidth="270.0" style="-fx-background-color: #4287f5;">
          <children>
-            <TextField fx:id="event_name" layoutX="14.0" layoutY="53.0" prefHeight="41.0" prefWidth="235.0" promptText="Event Name" />
-            <Button fx:id="create_event" layoutX="57.0" layoutY="237.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="149.0" style="-fx-background-color: #000000;" text="Create Event" textFill="WHITE">
+            <TextField fx:id="eventName" layoutX="17.0" layoutY="61.0" prefHeight="41.0" prefWidth="235.0" promptText="Event Name" />
+            <Button fx:id="createEvent" layoutX="135.0" layoutY="303.0" mnemonicParsing="false" onAction="#createEvent" prefHeight="33.0" prefWidth="118.0" style="-fx-background-color: #000000;" text="Create Event" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Button>
-            <Label fx:id="usernameTaken" layoutX="67.0" layoutY="64.0" prefHeight="18.0" prefWidth="135.0" textAlignment="CENTER" textFill="#791e1e">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
-            <ChoiceBox fx:id="sport_type" layoutX="14.0" layoutY="188.0" prefHeight="25.0" prefWidth="235.0" />
-            <TextField fx:id="number_of_seats" layoutX="14.0" layoutY="103.0" prefHeight="41.0" prefWidth="235.0" promptText="Number of Seats" />
-            <DatePicker layoutX="14.0" layoutY="153.0" prefHeight="25.0" prefWidth="235.0" />
-            <Button fx:id="back" layoutX="57.0" layoutY="307.0" mnemonicParsing="false" onAction="#toOrganizerMenu" prefHeight="49.0" prefWidth="149.0" style="-fx-background-color: #000000;" text="Back" textFill="WHITE">
+            <ChoiceBox fx:id="sportTypeChoiceBox" layoutX="17.0" layoutY="252.0" prefHeight="25.0" prefWidth="235.0" />
+            <TextField fx:id="numberOfSeats" layoutX="17.0" layoutY="111.0" prefHeight="41.0" prefWidth="235.0" promptText="Number of Seats" />
+            <DatePicker fx:id="eventDate" layoutX="17.0" layoutY="163.0" prefHeight="25.0" prefWidth="235.0" promptText="Date" />
+            <Button fx:id="back" layoutX="19.0" layoutY="303.0" mnemonicParsing="false" onAction="#toOrganizerMenu" prefHeight="34.0" prefWidth="95.0" style="-fx-background-color: #000000;" text="Back" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="15.0" />
                </font>
             </Button>
+            <TextField fx:id="ticketPrice" layoutX="17.0" layoutY="200.0" prefHeight="42.0" prefWidth="235.0" promptText="Ticket Price" />
+            <Label fx:id="eventLabel" alignment="CENTER" layoutX="15.0" layoutY="31.0" prefHeight="18.0" prefWidth="235.0" textAlignment="CENTER" />
          </children>
       </AnchorPane>
    </children>

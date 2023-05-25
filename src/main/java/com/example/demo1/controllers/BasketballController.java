@@ -4,11 +4,10 @@ import com.example.demo1.Main;
 import com.example.demo1.database.NitriteDB;
 import com.example.demo1.entities.Event;
 import com.example.demo1.entities.SportType;
-import com.example.demo1.exceptions.InsufficientSeats;
+import com.example.demo1.exceptions.InsufficientSeatsException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -59,7 +58,7 @@ public class BasketballController implements Initializable {
             successfullBuy();
         }catch(IndexOutOfBoundsException e){
             ticket_message.setText("Please select an event !");
-        } catch (InsufficientSeats insufficientSeats) {
+        } catch (InsufficientSeatsException insufficientSeats) {
             ticket_message.setText("No more seats for this event!");
         } catch (IOException e){
 

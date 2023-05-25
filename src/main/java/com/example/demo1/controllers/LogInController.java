@@ -39,9 +39,9 @@ public class LogInController {
             User user = db.findUser(tf_username.getText(),tf_password.getText()).get();
             db.setCurrentUser(user);
             System.out.println(user);
-       //     db.insertEvent("UCL FINAL", SportType.FOOTBALL,"10 Iunie",30,25.0);
-        //    db.insertEvent("NBA FINAL", SportType.BASKETBALL,"10 Iunie",30,25.0);
-        //    db.insertEvent("ROLAND GARROS FINAL", SportType.TENNIS,"10 Iunie",30,25.0);
+//            db.insertEvent("UCL FINAL", SportType.FOOTBALL,"10 Iunie",30,25.0);
+//            db.insertEvent("NBA FINAL", SportType.BASKETBALL,"10 Iunie",30,25.0);
+//            db.insertEvent("ROLAND GARROS FINAL", SportType.TENNIS,"10 Iunie",30,25.0);
             Main m = new Main();
             if(user.getRole().equals("Customer")) {
                 m.changeScene("customer-menu.fxml");

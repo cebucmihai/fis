@@ -3,8 +3,9 @@ package com.example.demo1.database;
 import com.example.demo1.entities.Event;
 import com.example.demo1.entities.SportType;
 import com.example.demo1.entities.User;
-import com.example.demo1.exceptions.InsufficientSeats;
-import com.example.demo1.exceptions.UserAlreadyExists;
+import com.example.demo1.exceptions.EventAlreadyExistException;
+import com.example.demo1.exceptions.InsufficientSeatsException;
+import com.example.demo1.exceptions.UserAlreadyExistsException;
 import org.dizitart.no2.Nitrite;
 import org.dizitart.no2.objects.ObjectRepository;
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class NitriteDB {
 
     public void insertUser(String username, String password, String role) {
         if (checkUsername(username))
-            throw new UserAlreadyExists("ANOTHER USERNAME");
+            throw new UserAlreadyExistsException("ANOTHER USERNAME");
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
@@ -88,6 +89,15 @@ public class NitriteDB {
         return Optional.empty();
     }
 
+    public boolean findEvent(String eventName) {
+        for (Event e : eventRepository.find()) {
+            if (eventName.equals(e.getEventName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public List<Event> readEvents() {
         List<Event> events = new ArrayList<>();
         for(Event e : eventRepository.find()) {
@@ -101,10 +111,13 @@ public class NitriteDB {
                             String eventDate,
                             int numberOfSeats,
                             double ticketPrice) {
-        eventRepository.insert(new Event(eventName, sportType, eventDate, numberOfSeats, ticketPrice, getCurrentUser()));
+        if(findEvent(eventName)) throw new EventAlreadyExistException("This event already exist!");
+        Event event = new Event(eventName, sportType, eventDate, numberOfSeats, ticketPrice);
+        eventRepository.insert(event);
+        currentUser.addEvents(event);
     }
 
-    public void updateEvent(Event event) throws InsufficientSeats {
+    public void updateEvent(Event event) throws InsufficientSeatsException {
         event.updateNumberOfSeats();
         eventRepository.update(event);
     }

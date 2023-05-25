@@ -1,7 +1,6 @@
 package com.example.demo1.entities;
 
 
-import com.example.demo1.exceptions.InsufficientSeats;
 import org.dizitart.no2.objects.Id;
 
 import java.util.ArrayList;

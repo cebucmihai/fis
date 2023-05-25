@@ -2,7 +2,7 @@ package com.example.demo1.controllers;
 
 import com.example.demo1.Main;
 import com.example.demo1.database.NitriteDB;
-import com.example.demo1.exceptions.UserAlreadyExists;
+import com.example.demo1.exceptions.UserAlreadyExistsException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,7 +42,7 @@ public class RegisterController implements Initializable {
         m.changeScene("log-in.fxml");
     }
 
-    private void checkRegister() throws IOException{
+    private void checkRegister() throws IOException {
         if(username.getText().isEmpty() ) {
             usernameTaken.setText("Please fill in the username field");
         }
@@ -63,7 +63,7 @@ public class RegisterController implements Initializable {
                 } else {
                     m.changeScene("organizer-menu.fxml");
                 }
-            } catch (UserAlreadyExists e) {
+            } catch (UserAlreadyExistsException e) {
                 usernameTaken.setText(e.getMessage());
             }
         }
